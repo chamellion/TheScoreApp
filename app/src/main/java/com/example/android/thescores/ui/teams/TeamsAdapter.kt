@@ -13,7 +13,7 @@ import com.example.android.thescores.model.TeamsItem
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
 import timber.log.Timber
 
-class TeamsAdapter :
+class TeamsAdapter(private val listener: TeamClickListener) :
     ListAdapter<TeamsItem, TeamsAdapter.TeamsViewHolder>(TeamsDiffUtils()) {
 
 
@@ -22,7 +22,11 @@ class TeamsAdapter :
     }
 
     override fun onBindViewHolder(holder: TeamsViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val teamsItem = getItem(position)
+        holder.bind(teamsItem)
+        holder.itemView.setOnClickListener {
+            listener.teamListener(teamsItem)
+        }
     }
 
 
@@ -65,5 +69,8 @@ class TeamsDiffUtils : DiffUtil.ItemCallback<TeamsItem>() {
     override fun areContentsTheSame(oldItem: TeamsItem, newItem: TeamsItem): Boolean {
         return oldItem == newItem
     }
+}
 
+class TeamClickListener(private val listener: (teamItem : TeamsItem)-> Unit){
+    fun teamListener(teamItem: TeamsItem) = listener(teamItem)
 }

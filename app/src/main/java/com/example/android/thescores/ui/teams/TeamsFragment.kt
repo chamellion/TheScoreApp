@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -25,11 +26,14 @@ class TeamsFragment : Fragment() {
         val binding = FragmentTeamsBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = viewLifecycleOwner
-        val teamsAdapter = TeamsAdapter()
+        val teamsAdapter = TeamsAdapter(TeamClickListener { teamItem ->
+            Toast.makeText(requireContext(), teamItem.email, Toast.LENGTH_LONG).show()
+        })
 
         binding.recyclerView.apply {
             layoutManager = GridLayoutManager(requireContext(), 3)
             adapter = teamsAdapter
+            addItemDecoration(GridLayoutDecorator(40))
         }
         lifecycleScope.launch {
             teamsViewModel.loadTeamPicture().observe(viewLifecycleOwner){teamItemList->
