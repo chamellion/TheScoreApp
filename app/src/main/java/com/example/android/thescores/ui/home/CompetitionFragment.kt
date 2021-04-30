@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.android.thescores.databinding.FragmentCompetitionBinding
@@ -15,7 +16,6 @@ import com.example.android.thescores.utils.isOnline
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 @AndroidEntryPoint
 class CompetitionFragment : Fragment() {
@@ -34,7 +34,8 @@ class CompetitionFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         footballCompetitionAdapter = FootballCompetitionAdapter(FootballCompetitionClickListener { competitionID ->
-            Timber.d("ID clicked is $competitionID")
+            val action = CompetitionFragmentDirections.actionCompetitionFragmentToTeamsFragment(competitionID)
+            findNavController().navigate(action)
         })
 
         binding.recyclerView.apply {

@@ -14,7 +14,7 @@ class CompetitionRepository @Inject constructor(private val footballDb: Football
                                                 private val networkService: FootballNetworkService){
 
     suspend fun syncNetworkWithDatabase(){
-        val competitionAsync = networkService.getAllFootballCompetitionAsync()
+        val competitionAsync = networkService.getAllFootballCompetitionAsync("TIER_ONE")
         try {
             val competitionResponse = competitionAsync.await()
             val competitionList = competitionResponse.extractCompetitionList()
@@ -28,7 +28,7 @@ class CompetitionRepository @Inject constructor(private val footballDb: Football
     }
 
     suspend fun loadCompetitionFromNetwork() : List<FootballCompetition>{
-        val competitionsResponseAsync = networkService.getAllFootballCompetitionAsync()
+        val competitionsResponseAsync = networkService.getAllFootballCompetitionAsync("TIER_ONE")
         return competitionsResponseAsync.await().extractCompetitionList()
     }
 

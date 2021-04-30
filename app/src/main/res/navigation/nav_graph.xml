@@ -7,5 +7,20 @@
     <fragment
         android:id="@+id/competitionFragment"
         android:name="com.example.android.thescores.ui.home.CompetitionFragment"
-        android:label="CompetitionFragment" />
+        android:label="CompetitionFragment" >
+        <action
+            android:id="@+id/action_competitionFragment_to_teamsFragment"
+            app:destination="@id/teamsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamsFragment"
+        android:name="com.example.android.thescores.ui.teams.TeamsFragment"
+        android:label="TeamsFragment" >
+        <action
+            android:id="@+id/action_teamsFragment_to_competitionFragment"
+            app:destination="@id/competitionFragment" />
+        <argument
+            android:name="competition_id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

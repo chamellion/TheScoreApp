@@ -5,9 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.thescores.databinding.FragmentTeamsBinding
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class TeamsFragment : Fragment() {
+
+    private val teamsViewModel : TeamsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -16,7 +24,18 @@ class TeamsFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentTeamsBinding.inflate(inflater, container, false)
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        val teamsAdapter = TeamsAdapter()
 
+        binding.recyclerView.apply {
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            adapter = teamsAdapter
+        }
+        lifecycleScope.launch {
+            teamsViewModel.loadTeamPicture().observe(viewLifecycleOwner){teamItemList->
+                teamsAdapter.submitList(teamItemList)
+            }
+        }
 
         return binding.root
     }
