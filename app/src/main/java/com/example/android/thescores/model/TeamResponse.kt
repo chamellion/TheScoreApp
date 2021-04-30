@@ -1,6 +1,8 @@
 package com.example.android.thescores.model
 
+import android.os.Parcelable
 import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 
 data class TeamResponse(
 
@@ -41,6 +43,7 @@ data class Competition(
 	val plan: String? = null
 )
 
+@Parcelize
 data class TeamArea(
 
 	@Json(name="name")
@@ -48,8 +51,9 @@ data class TeamArea(
 
 	@Json(name="id")
 	val id: Int? = null
-)
+) : Parcelable
 
+@Parcelize
 data class TeamsItem(
 
 	@Json(name="area")
@@ -93,7 +97,7 @@ data class TeamsItem(
 
 	@Json(name="email")
 	val email: String? = null
-)
+) : Parcelable
 
 data class Season(
 

@@ -22,5 +22,19 @@
         <argument
             android:name="competition_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_teamsFragment_to_teamDetailsFragment"
+            app:destination="@id/teamDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailsFragment"
+        android:name="com.example.android.thescores.ui.teamDetails.TeamDetailsFragment"
+        android:label="TeamDetailsFragment" >
+        <action
+            android:id="@+id/action_teamDetailsFragment_to_teamsFragment"
+            app:destination="@id/teamsFragment" />
+        <argument
+            android:name="teamItem"
+            app:argType="com.example.android.thescores.model.TeamsItem" />
     </fragment>
 </navigation>

@@ -1,6 +1,7 @@
 package com.example.android.thescores.networkapi
 
 import com.example.android.thescores.model.CompetitionResponse
+import com.example.android.thescores.model.TeamPlayerResponse
 import com.example.android.thescores.model.TeamResponse
 import kotlinx.coroutines.Deferred
 import retrofit2.http.*
@@ -15,4 +16,8 @@ interface FootballNetworkService {
     @GET("competitions/{id}/teams")
     @Headers("X-Auth-Token: d1d0f4be14054056a03bfbeafced4153")
     fun getTeamImagesAsync(@Path("id") teamId : Int) : Deferred<TeamResponse>
+
+    @GET("teams/{id}")
+    @Headers("X-Auth-Token: d1d0f4be14054056a03bfbeafced4153")
+    fun getTeamPlayersAsync(@Path("id")teamId : Int) : Deferred<TeamPlayerResponse>
 }

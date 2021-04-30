@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.thescores.databinding.FragmentTeamsBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +28,8 @@ class TeamsFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
         val teamsAdapter = TeamsAdapter(TeamClickListener { teamItem ->
-            Toast.makeText(requireContext(), teamItem.email, Toast.LENGTH_LONG).show()
+            val action = TeamsFragmentDirections.actionTeamsFragmentToTeamDetailsFragment(teamItem)
+            findNavController().navigate(action)
         })
 
         binding.recyclerView.apply {

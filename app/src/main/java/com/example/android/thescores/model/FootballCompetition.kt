@@ -10,3 +10,9 @@ data class FootballCompetition(@PrimaryKey
                                val startDate : String,
                                val country : String)
 
+data class TeamPlayers(val id : Int,
+                       val playerName : String,
+                       val playerPosition : String,
+                       val playerCountry : String,
+                       val playerDOB : String)
+
